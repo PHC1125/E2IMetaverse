@@ -4,129 +4,300 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Center For Engineering Education Innovation in the Metaverse</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary-light: #e0e5ec;
+            --text-light: #2d3436;
+            --shadow-light: #a3b1c6;
+            --highlight-light: #ffffff;
+            
+            --primary-dark: #1a1f25;
+            --text-dark: #ecf0f1;
+            --shadow-dark: #000000;
+            --highlight-dark: #2d3436;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f0f4f8;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
         }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-light);
+            color: var(--text-light);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background: var(--primary-dark);
+            color: var(--text-dark);
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            animation: float 15s infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            background: var(--primary-light);
+            box-shadow: 5px 5px 10px var(--shadow-light),
+                       -5px -5px 10px var(--highlight-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .dark-mode .theme-toggle {
+            background: var(--primary-dark);
+            box-shadow: 5px 5px 10px var(--shadow-dark),
+                       -5px -5px 10px var(--highlight-dark);
+        }
+
         header {
             text-align: center;
-            background-color: #003366;
-            color: white;
-            padding: 20px;
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
         }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+
         h1 {
-            margin: 0;
-            font-size: 2.5em;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
         }
-        p {
-            text-align: center;
-            margin: 20px;
-            font-size: 1.2em;
-            color: #333;
-        }
-        .container {
-            max-width: 1200px;
+
+        .subtitle {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            opacity: 0.9;
         }
-        .section {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin: 10px;
-            padding: 20px;
-            flex: 1 1 200px;
-            text-align: center;
-            transition: transform 0.2s;
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
         }
-        .section:hover {
+
+        .card {
+            padding: 2rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            box-shadow: 10px 10px 20px var(--shadow-light),
+                       -10px -10px 20px var(--highlight-light);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .dark-mode .card {
+            box-shadow: 10px 10px 20px var(--shadow-dark),
+                       -10px -10px 20px var(--highlight-dark);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-image {
             transform: scale(1.05);
         }
-        .section img {
-            max-width: 100%;
-            border-radius: 8px;
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #3498db;
         }
-        .section h2 {
-            color: #003366;
-            margin-bottom: 10px;
+
+        .dark-mode .card h2 {
+            color: #4fa3e0;
         }
-        .section a {
-            text-decoration: none;
-            color: #003366;
-            font-weight: bold;
+
+        .card p {
+            line-height: 1.6;
+            opacity: 0.9;
         }
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
+
+        @media (max-width: 768px) {
             .container {
-                flex-direction: column;
-                align-items: center;
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                height: 300px;
+            }
+
+            .card-image {
+                height: 200px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Center For Engineering Education Innovation in the Metaverse</h1>
-    </header>
-    <p>This page served as a repositiory for the metaverse space used as a part of the teaching and learning innovation project headed by Professor Ben Chan in the Center for Engineering Education Innovation (E2I), School of Engineering in the Hong Kong University of Science and Technology (HKUST)</p>
-    <div class="container">
-        <div class="section">
-            <img src="images/1.jpg" alt="HKUST 2050">
-            <h2><a href="https://www.spatial.io/s/CORE-1200-HKUST-Sundial-Area-Spring-Semester-2023-Archive-64a2480f29c7a7b52e222c56?share=5805290040276782556">HKUST 2050</a></h2>
-            <p>Students are asked to envision the future of HKUST in the year 2050.</p>
-        </div>
-       
-        <div class="section">
-            <img src="images/2.jpg" alt="World Culture">
-            <h2><a href="https://www.spatial.io/s/CORE-1200-World-Culture-Reimagining-HKUST-64b62c4b14fbde13fd5e3e66?share=359761047783613098">World Culture</a></h2>
-            <p>Students are asked to reimagine the culture of a specific region in a creative way.</p>
-        </div>
-       
-        <div class="section">
-            <img src="images/3.jpg" alt="Intercultural Peer Learning Program">
-            <h2><a href="https://www.spatial.io/s/HKUST-X-SKKU-IPLP-2023-Lobby-Area-63bf756961f6836071fc939d?share=7270109091868576855">Intercultural Peer Learning Program</a></h2>
-            <p>A yearly exchange event between HKUST and SKKU in which students from both sides get to explore the unique culture of Hong Kong and Korea.</p>
-        </div>
-       
-        <div class="section">
-            <img src="images/4.jpg" alt="Collaboration with HK Tramways">
-            <h2><a href="https://www.spatial.io/s/E2I-x-Tramplus-Demo-Scene-30A-6499457f89f0ff5567a0a458?share=8548557761951585420">Collaboration with HK Tramways</a></h2>
-            <p>In collaboration with HK Tramways, we created the "Be a Metaverse Creator" STEM Education module designed for secondary school students.</p>
-        </div>
-        
-        <div class="section">
-            <img src="images/5.jpg" alt="E2Island">
-            <h2><a href="https://www.spatial.io/s/E2Island-Introduction-to-Spatial-Team-1-64bdcacfe6e36a3892a14260?share=2737647300880612298">E2Island</a></h2>
-            <p>A custom built environemnt for virtual metaverse-tracing and team building.</p>
-        </div>
-
-        <div class="section">
-            <img src="images/6.jpg" alt="Press Coverage">
-            <h2><a href="https://seng.hkust.edu.hk/news/20230726/hkust-students-co-created-2050-university-campus-metaverse">Press Coverage</a></h2>
-            <p>Read more about this teaching and learning project.</p>
-        </div>
-    
-        <div class="section">
-            <img src="images/7.jpg" alt="About Us">
-            <h2><a href="https://e2i.hkust.edu.hk/">About Our Center</a></h2>
-            <p>Learn more about our center and our latest initiative and projects.</p>
-        </div>
-
-        <div class="section">
-            <img src="images/7.jpg" alt="About the platform">
-            <h2><a href="https://www.spatial.io/">Spatial IO</a></h2>
-            <p>Learn more about the platform we are using.</p>
-        </div>
-    
-    
+    <div class="background-animation">
+        <div class="circle" style="width: 100px; height: 100px; left: 10%; top: 20%;"></div>
+        <div class="circle" style="width: 150px; height: 150px; right: 20%; top: 40%;"></div>
+        <div class="circle" style="width: 80px; height: 80px; left: 30%; bottom: 30%;"></div>
+        <div class="circle" style="width: 120px; height: 120px; right: 15%; bottom: 20%;"></div>
     </div>
+
+    <button class="theme-toggle" aria-label="Toggle theme">🌓</button>
+
+    <div class="container">
+        <header data-aos="fade-down">
+            <h1>Center For Engineering Education Innovation in the Metaverse</h1>
+            <p class="subtitle">This page served as a repositiory for the metaverse space used as a part of the teaching and learning innovation project headed by Professor Ben Chan in the Center for Engineering Education Innovation (E2I), School of Engineering in the Hong Kong University of Science and Technology (HKUST)</p>
+        </header>
+
+        <div class="grid">
+            <div class="card" data-aos="fade-up">
+                <img src="images/1.jpg" alt="HKUST 2050" class="card-image">
+                <h2><a href="https://www.spatial.io/s/CORE-1200-HKUST-Sundial-Area-Spring-Semester-2023-Archive-64a2480f29c7a7b52e222c56?share=5805290040276782556">HKUST 2050</a></h2>
+                <p>Students are asked to envision the future of HKUST in the year 2050, exploring innovative possibilities and technological advancements.</p>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <img src="images/2.jpg" alt="World Culture" class="card-image">
+                <h2><a href="https://www.spatial.io/s/CORE-1200-World-Culture-Reimagining-HKUST-64b62c4b14fbde13fd5e3e66?share=359761047783613098">World Culture</a></h2>
+                <p>Students reimagine the culture of specific regions in creative ways, fostering cultural understanding and innovation.</p>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
+                <img src="images/3.jpg" alt="Intercultural Learning" class="card-image">
+                <h2><a href="https://www.spatial.io/s/HKUST-X-SKKU-IPLP-2023-Lobby-Area-63bf756961f6836071fc939d?share=7270109091868576855">Intercultural Peer Learning Program (IPLP)</a></h2>
+                <p>A yearly exchange event between HKUST and SKKU, exploring the unique cultures of Hong Kong and Korea.</p>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="300">
+                <img src="images/4.jpg" alt="HK Tramways" class="card-image">
+                <h2><a href="https://www.spatial.io/s/E2I-x-Tramplus-Demo-Scene-30A-6499457f89f0ff5567a0a458?share=8548557761951585420">Collaboration with HK Tramways</a></h2>
+                <p>"Be a Metaverse Creator" STEM Education module designed for secondary school students in partnership with HK Tramways.</p>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="400">
+                <img src="images/5.jpg" alt="E2Island" class="card-image">
+                <h2><a href="https://www.spatial.io/s/E2Island-Introduction-to-Spatial-Team-1-64bdcacfe6e36a3892a14260?share=2737647300880612298">E2Island</a></h2>
+                <p>A custom-built environment for virtual metaverse-tracing and team building activities.</p>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="500">
+                <img src="images/6.jpg" alt="Press Coverage" class="card-image">
+                <h2><a href="https://seng.hkust.edu.hk/news/20230726/hkust-students-co-created-2050-university-campus-metaverse">Press Coverage</a></h2>
+                <p>Discover more about this innovative teaching and learning project through media coverage.</p>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="600">
+                <img src="images/7.jpg" alt="About Center" class="card-image">
+                <h2><a href="https://e2i.hkust.edu.hk/">About Our Center</a></h2>
+                <p>Learn more about our center and explore our latest initiatives and projects.</p>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="700">
+                <img src="images/7.jpg" alt="Spatial IO" class="card-image">
+                <h2><a href="https://www.spatial.io/">Spatial IO</a></h2>
+                <p>Explore more about the platform we are using for our metaverse initiatives.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        function createFloatingCircles() {
+            const circles = document.querySelectorAll('.circle');
+            circles.forEach(circle => {
+                const randomX = Math.random() * window.innerWidth;
+                const randomY = Math.random() * window.innerHeight;
+                circle.style.left = `${randomX}px`;
+                circle.style.top = `${randomY}px`;
+            });
+        }
+
+        createFloatingCircles();
+        window.addEventListener('resize', createFloatingCircles);
+    </script>
 </body>
 </html>
